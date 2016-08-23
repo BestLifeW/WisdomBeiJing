@@ -65,9 +65,8 @@ public class NewsCenterPager extends BasePager {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 String result = responseInfo.result;
-                // Log.i(TAG, "服务器返回结果: " + result);
+                Log.i(TAG, "服务器返回结果: " + result);
                 processData(result);
-
                 CacheUtils.setCache(GlobalConstants.CATEGORY_URL, result, mActivity);
             }
 
@@ -92,7 +91,7 @@ public class NewsCenterPager extends BasePager {
 
         //初始化4个菜
         mMenuDetailPagers = new ArrayList<>();
-        mMenuDetailPagers.add(new NewsMenuDetailPager(mActivity));
+        mMenuDetailPagers.add(new NewsMenuDetailPager(mActivity,mNewsData.data.get(0).children));
         mMenuDetailPagers.add(new TopicMenuDetailPager(mActivity));
         mMenuDetailPagers.add(new PhotosMenuDetailPager(mActivity));
         mMenuDetailPagers.add(new InteractMenuDetailPager(mActivity));
@@ -108,9 +107,7 @@ public class NewsCenterPager extends BasePager {
         //清除之前所有布局
         flContent.removeAllViews();
         flContent.addView(view);
-
         pager.initData();
-
         tvTitle.setText(mNewsData.data.get(position).title);
     }
 

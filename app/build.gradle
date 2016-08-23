@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    mavenCentral()
+}
 android {
     compileSdkVersion 22
     buildToolsVersion "24.0.0"
@@ -26,4 +29,9 @@ dependencies {
     compile project(':sliding_menu')
     compile 'com.jiechic.library:xUtils:2.6.14'
     compile 'com.google.code.gson:gson:2.7'
+    compile 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
+    compile 'com.android.support:recyclerview-v7:22.1.1'
+    compile 'com.android.support:cardview-v7:22.1.1'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
 }
