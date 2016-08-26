@@ -3,6 +3,8 @@ package com.lovec.wisdom.base.impl.menu;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -59,7 +61,7 @@ public class TabDetailPager extends BaseMenuDetailPager {
     private PullToRefreshListView lvList;
 
     private String mUrl;
-
+    private Handler mHandler;
     private ArrayList<NewsTabBean.TopNews> mTopNews;
     private ArrayList<NewsTabBean.NewsData> mNewsList;
 
@@ -252,6 +254,22 @@ public class TabDetailPager extends BaseMenuDetailPager {
             if (mNewsList != null) {
                 mNewsAdapter = new NewsAdapter();
                 lvList.setAdapter(mNewsAdapter);
+
+            }
+            if (mHandler == null) {
+                mHandler = new Handler() {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        int currentItem = mViewPager.getCurrentItem();
+                        currentItem++;
+                        if (currentItem > mTopNews.size() - 1) {
+                            currentItem = 0;//到了最后一个页面后，跳到0位置
+                        }
+                        mViewPager.setCurrentItem(currentItem);
+                        mHandler.sendEmptyMessageDelayed(0, 3000);
+                    }
+                };
+                mHandler.sendEmptyMessageDelayed(0, 3000);
             }
         } else {
             //加载更多数据

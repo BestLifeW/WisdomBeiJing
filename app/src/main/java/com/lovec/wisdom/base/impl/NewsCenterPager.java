@@ -91,9 +91,9 @@ public class NewsCenterPager extends BasePager {
 
         //初始化4个菜
         mMenuDetailPagers = new ArrayList<>();
-        mMenuDetailPagers.add(new NewsMenuDetailPager(mActivity,mNewsData.data.get(0).children));
+        mMenuDetailPagers.add(new NewsMenuDetailPager(mActivity, mNewsData.data.get(0).children));
         mMenuDetailPagers.add(new TopicMenuDetailPager(mActivity));
-        mMenuDetailPagers.add(new PhotosMenuDetailPager(mActivity));
+        mMenuDetailPagers.add(new PhotosMenuDetailPager(mActivity, btnPhoto));
         mMenuDetailPagers.add(new InteractMenuDetailPager(mActivity));
         //新闻菜单详情页 设置为默认
         setCurrentDetailPager(0);
@@ -109,6 +109,14 @@ public class NewsCenterPager extends BasePager {
         flContent.addView(view);
         pager.initData();
         tvTitle.setText(mNewsData.data.get(position).title);
-    }
 
+        // 如果是组图页面, 需要显示切换按钮
+        if (pager instanceof PhotosMenuDetailPager) {
+            btnPhoto.setVisibility(View.VISIBLE);
+        } else {
+            // 隐藏切换按钮
+            btnPhoto.setVisibility(View.GONE);
+        }
+    }
 }
+
